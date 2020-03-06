@@ -1,0 +1,23 @@
+{
+  "name": "sekreto-cli",
+  "version": "1.0.0",
+  "description": "A CLI helps you securely encrypt your files.",
+  "main": "lib/index.js",
+  "bin": {
+    "sekreto": "./bin/sekreto"
+  },
+  "scripts": {
+    "serve": "npx typescript@latest --watch",
+    "build": "npx typescript@latest",
+    "test": "node lib/index.js"
+  },
+  "author": "Kynson Szetau",
+  "license": "MIT",
+  "dependencies": {
+    "fast-glob": "^3.2.2",
+    "inquirer": "^7.0.6"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^6.5.0"
+  }
+}
