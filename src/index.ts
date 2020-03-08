@@ -1,13 +1,13 @@
 import { ListQuestion, InputQuestion, PasswordQuestion, prompt } from 'inquirer';
 import { Subject } from 'rxjs';
 
-import { resolve as resolvePath } from 'path';
+import { dim } from 'chalk';
 
 type Service = 'encrypt' | 'decrypt';
 
 interface Config {
   service: Service,
-  absolutePathToFileOrDirectory: string,
+  pathToFileOrDirectory: string,
   password: string
 }
 
@@ -16,34 +16,39 @@ const promptSubject: Subject<ListQuestion | InputQuestion | PasswordQuestion> = 
 const { ui: promptUI } = prompt<Config>(promptSubject);
 const { answers: promptUIAnswers, process: promptUIProcess } = promptUI;
 
+const SERVICE_SELECTION_MESSAGE = 'Please select a service:';
+const PATH_TO_FILE_OR_DIRECTORY_INPUT_MESSAGE = 'Please enter the path to the file/directory you would like Sekreto to process:';
+const PASSWORD_INPUT_MESSAGE = `Please enter your password ${dim('(At least 8 charactors)')}:`;
+
 let config: Config = {
   service: null,
-  absolutePathToFileOrDirectory: null,
+  pathToFileOrDirectory: null,
   password: null
 };
+
+function onPromptUIProcessError(error: Error) {
+  console.log(error);
+}
 
 function onPromptUIProcessComplete() {
   config = promptUIAnswers as Config;
 }
 
-promptUIProcess.subscribe(null, (err) => console.log(err), onPromptUIProcessComplete);
+promptUIProcess.subscribe(null, onPromptUIProcessError, onPromptUIProcessComplete);
 
 promptSubject.next({
   choices: ['Encrypt', 'Decrypt'],
   filter: (input: string) => {
     return input.toLowerCase();
   },
-  message: 'Please select a service:',
+  message: SERVICE_SELECTION_MESSAGE,
   name: 'service',
   type: 'list'
 });
 
 promptSubject.next({
-  filter: (input: string) => {
-    return resolvePath(input);
-  },
-  message: 'Please enter the path to the file/directory you would like Sekreto to process:',
-  name: 'absolutePathToFileOrDirectory',
+  message: PATH_TO_FILE_OR_DIRECTORY_INPUT_MESSAGE,
+  name: 'pathToFileOrDirectory',
   validate: (input: string) => {
     if (!input) {
       return 'This field is required.';
@@ -56,7 +61,7 @@ promptSubject.next({
 
 promptSubject.next({
   mask: '*',
-  message: 'Please enter your password (At least 8 charactors):',
+  message: PASSWORD_INPUT_MESSAGE,
   name: 'password',
   validate: (input: string) => {
     if (!input) {

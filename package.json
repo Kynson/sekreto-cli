@@ -14,6 +14,7 @@
   "author": "Kynson Szetau",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^3.0.0",
     "fast-glob": "^3.2.2",
     "inquirer": "^7.0.6"
   },
