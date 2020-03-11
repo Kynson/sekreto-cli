@@ -1,29 +1,43 @@
-import { ListQuestion, InputQuestion, PasswordQuestion, prompt } from 'inquirer';
-import { Subject } from 'rxjs';
+import { Answers, ListQuestion, InputQuestion, PasswordQuestion, prompt as inquirerPrompt } from 'inquirer';
 
-import { dim } from 'chalk';
+import { Subject, Observable } from 'rxjs';
 
 type Service = 'encrypt' | 'decrypt';
 
 interface Config {
   service: Service,
   pathToFileOrDirectory: string,
-  password: string
+  password: string,
+  _confirmPasword: string
+}
+
+interface PromptUILike {
+  answers: Answers,
+  process: Observable<Answers>
 }
 
 const promptSubject: Subject<ListQuestion | InputQuestion | PasswordQuestion> = new Subject();
 
-const { ui: promptUI } = prompt<Config>(promptSubject);
+let prompt: Promise<Config> & { ui: PromptUILike };
+try {
+  prompt = inquirerPrompt<Config>(promptSubject);
+} catch (error) {
+
+}
+
+const { ui: promptUI } = prompt;
 const { answers: promptUIAnswers, process: promptUIProcess } = promptUI;
 
 const SERVICE_SELECTION_MESSAGE = 'Please select a service:';
 const PATH_TO_FILE_OR_DIRECTORY_INPUT_MESSAGE = 'Please enter the path to the file/directory you would like Sekreto to process:';
-const PASSWORD_INPUT_MESSAGE = `Please enter your password ${dim('(At least 8 charactors)')}:`;
+const PASSWORD_INPUT_MESSAGE = `Please enter your password:`;
+const PASSWORD_CONFIRMATION_INPUT_MESSAGE = `Please confirm you password:`;
 
 let config: Config = {
   service: null,
   pathToFileOrDirectory: null,
-  password: null
+  password: null,
+  _confirmPasword: null
 };
 
 function onPromptUIProcessError(error: Error) {
@@ -68,13 +82,30 @@ promptSubject.next({
       return 'This field is required.';
     }
 
-    if (input.length < 8) {
-      return 'Password must be at least 8 charactors.'
+    return true;
+  },
+  type: 'password'
+});
+
+promptSubject.next({
+  mask: '*',
+  message: PASSWORD_CONFIRMATION_INPUT_MESSAGE,
+  name: '_confirmPasword',
+  validate: (input: string, answers: Answers) => {
+    if (!input) {
+      return 'This field is required.';
+    }
+
+    if (input !== answers.password) {
+      return 'Password does not match.'
     }
 
     return true;
   },
-  type: 'password'
+  type: 'password',
+  when: (answers: Answers) => {
+    return answers.service === 'encrypt';
+  }
 });
 
 promptSubject.complete();
