@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A CLI helps you securely encrypt your files.",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "bin": {
     "sekreto": "./bin/sekreto"
   },
