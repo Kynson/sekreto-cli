@@ -2,15 +2,15 @@ import { bold, cyan, red, yellow } from 'chalk';
 
 type LogSeverity = 'error' | 'info' | 'warning';
 
-interface Logger {
+interface ILogger {
   error: (message: string, overridePreviousLine?: boolean) => void;
-  native: (...message: any[]) => void;
   info: (message: string, overridePreviousLine?: boolean) => void;
+  native: (...message: any[]) => void;
   warning: (message: string, overridePreviousLine?: boolean) => void;
 }
 
 function log(message: string, serverity: LogSeverity, overridePreviousLine: boolean = false) {
-  const prefix = serverity === 'error' ? red('✕') : serverity === 'info' ? cyan('i') : yellow('!');
+  const prefix = serverity === 'error' ? red('✕') : (serverity === 'info' ? cyan('i') : yellow('!'));
   const logMessage = bold(message);
 
   if (overridePreviousLine) {
@@ -22,9 +22,9 @@ function log(message: string, serverity: LogSeverity, overridePreviousLine: bool
   process.stdout.write(`${prefix} ${logMessage}\n`);
 }
 
-export const logger: Logger = {
+export const logger: ILogger = {
   error: (message: string, overridePreviousLine?: boolean) => log(message, 'error', overridePreviousLine),
-  native: (...message: any[]) => console.log.call(this, message),
   info: (message: string, overridePreviousLine?: boolean) => log(message, 'info', overridePreviousLine),
+  native: (...message: any[]) => console.log.call(this, message),
   warning: (message: string, overridePreviousLine?: boolean) => log(message, 'warning', overridePreviousLine)
-}
+};

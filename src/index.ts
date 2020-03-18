@@ -1,5 +1,13 @@
-import { prompt } from './prompt';
+import { prompt } from './prompt/prompt';
 
-const { process, answers } = prompt();
+import { logger } from './utils/logger';
 
-process.subscribe(null, (err) => console.log(err), () => console.log('hi'))
+import { DEFAULT_ERROR_MESSAGE } from './messages';
+
+prompt().
+  then(() => {
+    logger.info('Initiate');
+  }).
+  catch((error) => {
+    logger.error(DEFAULT_ERROR_MESSAGE);
+  });
