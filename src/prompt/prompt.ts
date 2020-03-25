@@ -1,16 +1,23 @@
 import { prompt as inquirerPrompt } from 'inquirer';
-
-import QUESTIONS from './QUESTIONS';
+import { questionForContinuationConfirmation, questionsForConfiguration } from './questions';
 
 type SekretoService = 'encrypt' | 'decrypt';
 
+interface IContinuationConfirmation {
+  shouldContinue: boolean;
+}
+
 interface ISekretoConfiguration {
   service: SekretoService;
-  pathToFileOrDirectory: string;
+  pathToTargetFileOrDirectory: string;
   password: string;
   _passwordConfirmation: string;
 }
 
-export function prompt() {
-  return inquirerPrompt<ISekretoConfiguration>(QUESTIONS);
+export function promptForContinuationConfirmation() {
+  return inquirerPrompt<IContinuationConfirmation>(questionForContinuationConfirmation);
+}
+
+export function promptForConfiguration() {
+  return inquirerPrompt<ISekretoConfiguration>(questionsForConfiguration);
 }

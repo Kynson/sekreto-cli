@@ -1,15 +1,14 @@
 import { Answers } from 'inquirer';
-
 import {
   PASSWORD_CONFIRMATION_INPUT_MESSAGE,
   PASSWORD_INPUT_MESSAGE,
   PASSWORD_MISMATCH_ERROR_MESSAGE,
-  PATH_TO_FILE_OR_DIRECTORY_INPUT_MESSAGE,
+  PATH_TO_TARGET_FILE_OR_DIRECTORY_INPUT_MESSAGE,
   REQUIRED_QUESTION_ERROR_MESSAGE,
   SERVICE_SELECTION_MESSAGE
 } from '../messages';
 
-const QUESTIONS = [
+export const questionsForConfiguration = [
   {
     choices: ['Encrypt', 'Decrypt'],
     filter(input: string) {
@@ -20,8 +19,8 @@ const QUESTIONS = [
     type: 'list'
   },
   {
-    message: PATH_TO_FILE_OR_DIRECTORY_INPUT_MESSAGE,
-    name: 'pathToFileOrDirectory',
+    message: PATH_TO_TARGET_FILE_OR_DIRECTORY_INPUT_MESSAGE,
+    name: 'pathToTargetFileOrDirectory',
     validate(input: string) {
       if (!input) {
         return REQUIRED_QUESTION_ERROR_MESSAGE;
@@ -66,4 +65,11 @@ const QUESTIONS = [
   }
 ];
 
-export default QUESTIONS;
+export const questionForContinuationConfirmation = [
+  {
+    default: false,
+    message: 'Do you want to continue',
+    name: 'shouldContinue',
+    type: 'confirm'
+  }
+];
