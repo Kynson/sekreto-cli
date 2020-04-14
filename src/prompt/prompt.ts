@@ -9,7 +9,7 @@ interface IContinuationConfirmation {
 
 interface ISekretoConfiguration {
   service: SekretoService;
-  pathToTargetFileOrDirectory: string;
+  pathToTargetFile: string;
   password: string;
   _passwordConfirmation: string;
 }

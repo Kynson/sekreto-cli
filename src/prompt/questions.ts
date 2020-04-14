@@ -1,9 +1,10 @@
+import { statSync } from 'fs';
 import { Answers } from 'inquirer';
 import {
   PASSWORD_CONFIRMATION_INPUT_MESSAGE,
   PASSWORD_INPUT_MESSAGE,
   PASSWORD_MISMATCH_ERROR_MESSAGE,
-  PATH_TO_TARGET_FILE_OR_DIRECTORY_INPUT_MESSAGE,
+  PATH_TO_TARGET_FILE_INPUT_MESSAGE,
   REQUIRED_QUESTION_ERROR_MESSAGE,
   SERVICE_SELECTION_MESSAGE
 } from '../messages';
@@ -19,8 +20,8 @@ export const questionsForConfiguration = [
     type: 'list'
   },
   {
-    message: PATH_TO_TARGET_FILE_OR_DIRECTORY_INPUT_MESSAGE,
-    name: 'pathToTargetFileOrDirectory',
+    message: PATH_TO_TARGET_FILE_INPUT_MESSAGE,
+    name: 'pathToTargetFile',
     validate(input: string) {
       if (!input) {
         return REQUIRED_QUESTION_ERROR_MESSAGE;
