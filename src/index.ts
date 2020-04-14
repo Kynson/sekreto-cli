@@ -22,6 +22,10 @@ promptForConfiguration().
       switch (error.code) {
         case 'EACCES':
           logger.error(PERMISSION_DENIED_ERROR_MESSAGE);
+
+          if (error.path) {
+            logger.native(error.path);
+          }
           break;
         case 'ENOENT':
           logger.error(NO_SUCH_FILE_ERROR_MESSAGE);
