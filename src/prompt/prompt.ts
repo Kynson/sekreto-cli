@@ -11,6 +11,7 @@ interface ISekretoConfiguration {
   service: SekretoService;
   pathToTargetFile: string;
   password: string;
+  // Unused.
   _passwordConfirmation: string;
 }
 

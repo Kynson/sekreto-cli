@@ -28,9 +28,9 @@ import { logger } from './utils/logger';
  * @description Generates a HMAC of a file based on `start` and `end`.
  * @param password The password for HMAC generation.
  * @param pathToInputFile The path to a file for HMAC generation.
- * @param start The position the first byte generateHmac starts to read.
- * @param end The position the last byte generateHmac starts to read.
- * @returns A promise containing the HMAC generated.
+ * @param start The position of the first byte generateHmac starts to read.
+ * @param end The position of the last byte generateHmac starts to read.
+ * @returns A promise containing the HMAC buffer generated.
  */
 function generateHmac(
   password: string,

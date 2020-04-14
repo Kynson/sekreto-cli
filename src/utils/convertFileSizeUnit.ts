@@ -1,7 +1,7 @@
 /**
  * @description Converts file size into suitable unit.
  * @param size The size of a file in bytes.
- * @returns The converted file size with a suitable unit append in a string.
+ * @returns The converted file size with a suitable unit append.
  * @example
  * convertFileSizeUnit(10); // returns '10.000 bytes'
  * convertFileSizeUnit(1048576); // returns '1.000 MB'

@@ -41,8 +41,8 @@ export function cleanUpTemporaryFile(pathToTemporaryFile) {
 /**
  * @description Reads data of a file based on `start` and `to`
  * @param pathToTargetFile The path to a file to be read.
- * @param start The position the first byte readFile starts to read.
- * @param end The position the first byte readFile starts to read.
+ * @param start The position of the first byte readFile starts to read.
+ * @param end The position of the last byte readFile starts to read.
  * @returns A promise containing the buffer read.
  */
 export function readFile(pathToTargetFile: string, start: number = 0, end: number = Infinity): Promise<Buffer> {
