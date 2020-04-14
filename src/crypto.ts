@@ -13,8 +13,14 @@ import {
   statSync,
 } from 'fs';
 import { basename, resolve as resolvePath } from 'path';
+import {
+  DECRYPTION_COMPLETED_MESSAGE,
+  ENCRYPTION_COMPLETED_MESSAGE,
+  getDecryptingMessage,
+  getEncryptingMessage,
+  getLargeFileWarningMessage
+ } from './messages';
 import { promptForContinuationConfirmation } from './prompt/prompt';
-import convertFileSizeUnit from './utils/convertFileSizeUnit';
 import { appendFile, cleanUpTemporaryFile, createTemporaryFile, readFile } from './utils/fileSystem';
 import { logger } from './utils/logger';
 
@@ -145,21 +151,21 @@ export async function encryptFile(password: string, pathToTargetFile: string): P
 
   if (fileSize >= 104857600) {
     // Warns the user if the file is larger than 100 MB.
-    logger.warning(`We need ${convertFileSizeUnit(fileSize)} of storage for temporary file.`);
+    logger.warning(getLargeFileWarningMessage(fileSize));
 
     if (!((await promptForContinuationConfirmation()).shouldContinue)) {
       return;
     }
   }
 
-  const temporaryFileName = basename(absolutePathToTargetFile);
+  const fileBasename = basename(absolutePathToTargetFile);
 
   let pathToTemporaryFile: string;
 
-  logger.info(`Encrypting file ${temporaryFileName}.`);
+  logger.info(getEncryptingMessage(fileBasename));
 
   try {
-    pathToTemporaryFile = await createTemporaryFile(temporaryFileName);
+    pathToTemporaryFile = await createTemporaryFile(fileBasename);
 
     await encrypt(password, pathToTargetFile, pathToTemporaryFile);
 
@@ -168,7 +174,7 @@ export async function encryptFile(password: string, pathToTargetFile: string): P
 
     copyFileSync(pathToTemporaryFile, pathToTargetFile);
 
-    logger.info('Encryption completed.');
+    logger.info(ENCRYPTION_COMPLETED_MESSAGE);
   } catch (error) {
     throw error;
   } finally {
@@ -197,22 +203,22 @@ export async function decryptFile(password: string, pathToTargetFile: string) {
 
   if (fileSize >= 104857600) {
     // Warns the user if the file is larger than 100 MB.
-    logger.warning(`We need ${convertFileSizeUnit(fileSize)} of storage for temporary file.`);
+    logger.warning(getLargeFileWarningMessage(fileSize));
 
     if (!((await promptForContinuationConfirmation()).shouldContinue)) {
       return;
     }
   }
 
-  const temporaryFileName = basename(absolutePathToTargetFile);
+  const fileBasename = basename(absolutePathToTargetFile);
 
   let pathToTemporaryFile: string;
 
-  logger.info(`Decrypting file ${temporaryFileName}.`);
+  logger.info(getDecryptingMessage(fileBasename));
 
   try {
 
-    pathToTemporaryFile = await createTemporaryFile(temporaryFileName);
+    pathToTemporaryFile = await createTemporaryFile(fileBasename);
 
     const digestInFile = await readFile(pathToTargetFile, fileSize - 64);
     const digest = await generateHmac(password, pathToTargetFile, 0, fileSize - 65);
@@ -227,7 +233,7 @@ export async function decryptFile(password: string, pathToTargetFile: string) {
 
     copyFileSync(pathToTemporaryFile, pathToTargetFile);
 
-    logger.info('Decryption completed.');
+    logger.info(DECRYPTION_COMPLETED_MESSAGE);
   } catch (error) {
     throw error;
   } finally {
