@@ -143,8 +143,8 @@ export async function encryptFile(password: string, pathToTargetFile: string): P
     };
   }
 
-  if (fileSize >= 1024) {
-    // Warns the user if the file is larger than 100 MB (104857600).
+  if (fileSize >= 104857600) {
+    // Warns the user if the file is larger than 100 MB.
     logger.warning(`We need ${convertFileSizeUnit(fileSize)} of storage for temporary file.`);
 
     if (!((await promptForContinuationConfirmation()).shouldContinue)) {
@@ -195,8 +195,8 @@ export async function decryptFile(password: string, pathToTargetFile: string) {
     };
   }
 
-  if (fileSize >= 1024) {
-    // Warns the user if the file is larger than 100 MB (104857600).
+  if (fileSize >= 104857600) {
+    // Warns the user if the file is larger than 100 MB.
     logger.warning(`We need ${convertFileSizeUnit(fileSize)} of storage for temporary file.`);
 
     if (!((await promptForContinuationConfirmation()).shouldContinue)) {
