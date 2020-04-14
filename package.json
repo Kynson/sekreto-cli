@@ -1,7 +1,7 @@
 {
   "name": "sekreto-cli",
   "version": "1.0.0",
-  "description": "A CLI helps you securely encrypt your files.",
+  "description": "A CLI helps you to keep you files secret.",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -18,8 +18,8 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^3.0.0",
-    "fast-glob": "^3.2.2",
-    "inquirer": "^7.0.6"
+    "inquirer": "^7.0.6",
+    "tmp-promise": "^2.0.2"
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0"
