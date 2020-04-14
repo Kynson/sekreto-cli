@@ -139,7 +139,7 @@ function decrypt(password: string, pathToInputFile: string, pathToOutputFile: st
 export async function encryptFile(password: string, pathToTargetFile: string): Promise<void> {
   const absolutePathToTargetFile = resolvePath(pathToTargetFile);
 
-  const fileStats = statSync(pathToTargetFile);
+  const fileStats = statSync(absolutePathToTargetFile);
   const fileSize = fileStats.size;
   const isDirectory = fileStats.isDirectory();
 
@@ -191,7 +191,7 @@ export async function encryptFile(password: string, pathToTargetFile: string): P
 export async function decryptFile(password: string, pathToTargetFile: string) {
   const absolutePathToTargetFile = resolvePath(pathToTargetFile);
 
-  const fileStats = statSync(pathToTargetFile);
+  const fileStats = statSync(absolutePathToTargetFile);
   const fileSize = fileStats.size;
   const isDirectory = fileStats.isDirectory();
 
