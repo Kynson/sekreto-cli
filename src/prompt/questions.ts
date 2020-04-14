@@ -1,4 +1,3 @@
-import { statSync } from 'fs';
 import { Answers } from 'inquirer';
 import {
   PASSWORD_CONFIRMATION_INPUT_MESSAGE,
