@@ -19,6 +19,13 @@
     "type": "git",
     "url": "https://github.com/Kynson/sekreto-cli.git"
   },
+  "keywords": [
+    "sekreto",
+    "secret",
+    "cli",
+    "encryption",
+    "decryption"
+  ],
   "license": "MIT",
   "dependencies": {
     "chalk": "^3.0.0",
