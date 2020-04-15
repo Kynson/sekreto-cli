@@ -47,9 +47,16 @@ export function cleanUpTemporaryFile(pathToTemporaryFile) {
  */
 export function readFile(pathToTargetFile: string, start: number = 0, end: number = Infinity): Promise<Buffer> {
   return new Promise((resolve, reject) => {
+    const buffers: Buffer[] = [];
+
     createReadStream(pathToTargetFile, { start, end })
       .on('error', reject)
-      .on('data', resolve);
+      .on('data', (data) => {
+        buffers.push(data);
+      })
+      .once('close', () => {
+        resolve(Buffer.concat(buffers));
+      });
   });
 }
 
