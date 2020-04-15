@@ -12,7 +12,7 @@
   "scripts": {
     "serve": "npx typescript@latest --watch",
     "build": "rm -R lib && npx typescript@latest",
-    "test": "node lib/index.js"
+    "test": "bin/sekreto"
   },
   "author": "Kynson Szetau (https://kynsonszetau.com)",
   "repository": {
