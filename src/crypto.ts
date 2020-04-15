@@ -25,7 +25,7 @@ import { appendFile, cleanUpTemporaryFile, createTemporaryFile, readFile } from 
 import { logger } from './utils/logger';
 
 /**
- * @description Generates a HMAC of a file based on `start` and `end`.
+ * Generates a HMAC of a file based on `start` and `end`.
  * @param password The password for HMAC generation.
  * @param pathToInputFile The path to a file for HMAC generation.
  * @param start The position of the first byte generateHmac starts to read.
@@ -55,7 +55,7 @@ function generateHmac(
 }
 
 /**
- * @description Encrypts a file then write the result to another file.
+ * Encrypts a file then write the result to another file.
  * @param password The password for encryption.
  * @param pathToInputFile The path to a file to be ecrypted.
  * @param pathToOutputFile The path to a file which the encrypted data will be written to.
@@ -89,7 +89,7 @@ function encrypt(password: string, pathToInputFile: string, pathToOutputFile: st
 }
 
 /**
- * @description Decrypts a file then write the result to another file.
+ * Decrypts a file then write the result to another file.
  * @param password The password for decryption.
  * @param pathToInputFile The path to a file to be decrypted.
  * @param pathToOutputFile The path to a file which the decrypted data will be written to.
@@ -131,7 +131,7 @@ function decrypt(password: string, pathToInputFile: string, pathToOutputFile: st
 }
 
 /**
- * @description Encrypts a file with the `encrypt` function.
+ * Encrypts a file with the `encrypt` function.
  * @param password The password for encryption.
  * @param pathToInputFile The path to a file to be encrypted.
  * @returns A promise containing void.
@@ -183,7 +183,7 @@ export async function encryptFile(password: string, pathToTargetFile: string): P
 }
 
 /**
- * @description Encrypts a file with the `decrypt` function.
+ * Encrypts a file with the `decrypt` function.
  * @param password The password for decryption.
  * @param pathToInputFile The path to a file to be decrypted.
  * @returns A promise containing void.
