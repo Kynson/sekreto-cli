@@ -2,7 +2,7 @@
 Sekreto CLI helps you keep your files secret. Sekreto CLI uses [AES-256-CBC](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) algorithm with [HMAC-512](https://en.wikipedia.org/wiki/HMAC) to encrypt your files.
 
 ## Prerequisites
-Sekreto CLI requires Node.js version 10 or later. You can install the latest version of Node.js at https://nodejs.org/en/download/.
+Sekreto CLI requires Node.js version 10.20 or later. You can install the latest version of Node.js at https://nodejs.org/en/download/.
 
 Node.js version can be checked with the following command:
 ```
