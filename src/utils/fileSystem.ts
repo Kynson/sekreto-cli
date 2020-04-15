@@ -9,7 +9,7 @@ import { dirname, join } from 'path';
 import { dir, setGracefulCleanup } from 'tmp-promise';
 
 /**
- * @description Creates a temporary file based on `fileName`.
+ * Creates a temporary file based on `fileName`.
  * @param fileName The name of the temporary file to create.
  * @returns A promise containing `ICreateTemporaryFileResult`.
  */
@@ -27,7 +27,7 @@ export async function createTemporaryFile(fileName: string): Promise<string> {
 }
 
 /**
- * @description Cleans (deletes) the file and the directory containing the file.
+ * Cleans (deletes) the file and the directory containing the file.
  * @param pathToTemporaryFile The path to the file to be deleted.
  * @returns void.
  */
@@ -39,7 +39,7 @@ export function cleanUpTemporaryFile(pathToTemporaryFile) {
 }
 
 /**
- * @description Reads data of a file based on `start` and `to`
+ * Reads data of a file based on `start` and `to`
  * @param pathToTargetFile The path to a file to be read.
  * @param start The position of the first byte readFile starts to read.
  * @param end The position of the last byte readFile starts to read.
