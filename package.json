@@ -11,10 +11,14 @@
   },
   "scripts": {
     "serve": "npx typescript@latest --watch",
-    "build": "npx typescript@latest",
+    "build": "rm -R lib && npx typescript@latest",
     "test": "node lib/index.js"
   },
-  "author": "Kynson Szetau",
+  "author": "Kynson Szetau (https://kynsonszetau.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kynson/sekreto-cli.git"
+  },
   "license": "MIT",
   "dependencies": {
     "chalk": "^3.0.0",
